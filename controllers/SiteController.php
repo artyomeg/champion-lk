@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\ForbiddenHttpException;
+use yii\helpers\Url;
 
 class SiteController extends Controller {
 
@@ -16,17 +18,6 @@ class SiteController extends Controller {
      */
     public function behaviors() {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -116,6 +107,33 @@ class SiteController extends Controller {
      */
     public function actionAbout() {
         return $this->render('about');
+    }
+    
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionMe() {
+        if (!\Yii::$app->user->can('about'))
+            throw new ForbiddenHttpException('Access denied');
+
+        return $this->render('me');
+    }
+    
+    public function beforeAction($action) {
+        if (
+            // если я гость
+            Yii::$app->user->isGuest
+            &&
+            // и это не страница /login
+            (Yii::$app->controller->action->id !== 'login')
+        ) {
+            $a = 123;
+            return $this->redirect('login');
+        }
+        
+        return parent::beforeAction($action);
     }
 
 }

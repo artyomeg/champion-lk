@@ -1,19 +1,25 @@
-# Mod_Autoindex
-<IfModule mod_autoindex.c>
-  # Disable indexes
-  Options -Indexes
+#    RewriteBase /web/
+# Заголовок Cache-Control
+<IfModule mod_headers.c>
+        Header append Cache-Control "no-store, no-cache, must-revalidate"
+</IfModule>
+# Заголовок Expires
+<IfModule mod_expires.c>
+        ExpiresActive On ExpiresDefault "now"
 </IfModule>
 
-# Mod_Rewrite
-<IfModule mod_rewrite.c>
-  # Enable symlinks
-  Options +FollowSymlinks
-  # Enable mod_rewrite
-  RewriteEngine On
 
-  # If a directory or a file exists, use the request directly
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  # Otherwise forward the request to index.php
-  RewriteRule . index.php
-</IfModule>
+
+
+
+Options +FollowSymLinks
+IndexIgnore */*
+
+RewriteEngine on
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+RewriteRule . index.php

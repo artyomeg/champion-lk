@@ -42,7 +42,7 @@ $config = [
         
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'showScriptName' => true,
             'rules' => [
                 '<action>' => '/site/<action>',
                 [

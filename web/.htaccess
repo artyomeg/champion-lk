@@ -22,6 +22,14 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # otherwise forward it to index.php
-#RewriteRule .* index.php
+RewriteRule .* index.php
 
-RewriteRule ^([^/].*)$ /index.php/$1 [L]
+#RewriteRule ^(.*)      /web/$1
+#RewriteRule ^(.*)      /web/index.php/$1
+#RewriteRule ^index\.php$ yoursite.ru/ [R=301,L]
+
+#RewriteRule ^([^/].*)$ index.php/$1 [L]
+
+#Options +FollowSymLinks
+#RewriteEngine on
+#RewriteRule ^(.*)$ /web/index.php/$1

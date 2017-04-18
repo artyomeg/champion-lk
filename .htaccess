@@ -1,24 +1,9 @@
-Options +FollowSymlinks
+# Pre-OK
 RewriteEngine On
-#Options +FollowSymLinks
-#IndexIgnore */*
-#RewriteEngine on
-#
-#RewriteCond %{REQUEST_URI} !^/(web)
-#RewriteRule ^assets/(.*)$ /web/assets/$1 [L]
-#RewriteRule ^css/(.*)$ web/css/$1 [L]
-#RewriteRule ^js/(.*)$ web/js/$1 [L]
-#RewriteRule ^images/(.*)$ web/images/$1 [L]
-#RewriteRule (.*) /web/$1
-#
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule . /web/index.php
+RewriteBase /
+RewriteRule ^(.*)      /web/$1   [QSA,L,NC]
 
-#RewriteCond %{REQUEST_URI} ^(.*)$
-#RewriteRule ^(.*)$ web/$1
 
-    RewriteBase /
 # Заголовок Cache-Control
 <IfModule mod_headers.c>
         Header append Cache-Control "no-store, no-cache, must-revalidate"
@@ -30,13 +15,13 @@ RewriteEngine On
 
 
 
-
-
-
-
-RewriteCond %{REQUEST_URI} !^/(web)
-RewriteRule ^assets/(.*)$ /web/assets/$1 [L]
-RewriteRule ^css/(.*)$ web/css/$1 [L]
-RewriteRule ^js/(.*)$ web/js/$1 [L]
-RewriteRule ^images/(.*)$ web/images/$1 [L]
-RewriteRule !^web /web%{REQUEST_URI} [L]
+#
+#
+#
+#
+#RewriteCond %{REQUEST_URI} !^/(web)
+#RewriteRule ^assets/(.*)$ /web/assets/$1 [L]
+#RewriteRule ^css/(.*)$ web/css/$1 [L]
+#RewriteRule ^js/(.*)$ web/js/$1 [L]
+#RewriteRule ^images/(.*)$ web/images/$1 [L]
+#RewriteRule !^web /web%{REQUEST_URI} [L]

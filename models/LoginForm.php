@@ -13,9 +13,12 @@ use yii\base\Model;
  */
 class LoginForm extends Model {
 
+    public $username;
     public $email;
     public $password;
     public $rememberMe = true;
+    public $status;
+    
     private $_user = false;
 
     /**
@@ -23,12 +26,21 @@ class LoginForm extends Model {
      */
     public function rules() {
         return [
-            // username and password are both required
-            [['email', 'password'], 'required'],
-            // rememberMe must be a boolean value
+            [['email', 'password'], 'required', 'on' => 'default'],
+            [['email', 'password'], 'required', 'on' => 'loginWithEmail'],
+            ['email', 'email'],
             ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
             ['password', 'validatePassword'],
+        ];
+    }
+
+    /**
+     * @return array customized attribute labels
+     */
+    public function attributeLabels() {
+        return [
+            'password' => 'Пароль',
+            'rememberMe' => 'Запомнить меня',
         ];
     }
 

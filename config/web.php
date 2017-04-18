@@ -48,10 +48,10 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 [
-                    'pattern' => '/',
-                    'route' => 'site/index',
+                    'pattern' => '/login',
+                    'route' => '/site/login',
                 ],
-                '<action>' => 'site/<action>',
+                '<action>' => '/site/<action>',
                 [
                     'pattern' => '<controller>/<action>',
                     'route' => '<controller>/<action>',

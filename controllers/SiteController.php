@@ -52,6 +52,15 @@ class SiteController extends Controller {
     }
 
     /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionReport() {
+        return $this->render('report');
+    }
+    
+    /**
      * Login action.
      *
      * @return string
@@ -100,14 +109,6 @@ class SiteController extends Controller {
         ]);
     }
 
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout() {
-        return $this->render('about');
-    }
     
     /**
      * Displays about page.
@@ -130,7 +131,7 @@ class SiteController extends Controller {
             (Yii::$app->controller->action->id !== 'login')
         ) {
             $a = 123;
-            return $this->redirect('login');
+            return $this->redirect('site/login');
         }
         
         return parent::beforeAction($action);

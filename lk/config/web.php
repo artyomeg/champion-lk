@@ -8,8 +8,8 @@ $config = [
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
+            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => md5('asdFw42Q'),
-            'baseUrl' => ''
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -23,6 +23,9 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            // send all mails to a file by default. You have to set
+            // 'useFileTransport' to false and configure a transport
+            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'log' => [
@@ -61,6 +64,7 @@ $config = [
 ];
 
 if (YII_ENV_DEV) {
+    // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',

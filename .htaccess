@@ -1,19 +1,43 @@
-Options +FollowSymLinks
-IndexIgnore */*
-RewriteEngine on
-
-RewriteCond %{REQUEST_URI} !^/(web)
-RewriteRule ^assets/(.*)$ /web/assets/$1 [L]
-RewriteRule ^css/(.*)$ web/css/$1 [L]
-RewriteRule ^js/(.*)$ web/js/$1 [L]
-RewriteRule ^images/(.*)$ web/images/$1 [L]
-RewriteRule (.*) /web/$1
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /web/index.php
-
-
+#Options +FollowSymLinks
+#IndexIgnore */*
+#RewriteEngine on
+#
+#RewriteCond %{REQUEST_URI} !^/(web)
+#RewriteRule ^assets/(.*)$ /web/assets/$1 [L]
+#RewriteRule ^css/(.*)$ web/css/$1 [L]
+#RewriteRule ^js/(.*)$ web/js/$1 [L]
+#RewriteRule ^images/(.*)$ web/images/$1 [L]
+#RewriteRule (.*) /web/$1
+#
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule . /web/index.php
 
 
+# Mod_Autoindex
+<IfModule mod_autoindex.c>
+    # Disable Indexes
+    Options -Indexes
+</IfModule>
 
+# Mod_Rewrite
+<IfModule mod_rewrite.c>
+    # Enable symlinks
+    Options +FollowSymlinks
+    # Enable mod_rewrite
+    RewriteEngine On
+
+    # Redirect all requests to web
+    RewriteCond %{REQUEST_URI} ^(.*)$
+    RewriteRule ^(.*)$ web/$1
+</IfModule>
+
+# Заголовок Cache-Control
+<IfModule mod_headers.c>
+        Header append Cache-Control "no-store, no-cache, must-revalidate"
+</IfModule>
+ 
+# Заголовок Expires
+<IfModule mod_expires.c>
+        ExpiresActive On ExpiresDefault "now"
+</IfModule>

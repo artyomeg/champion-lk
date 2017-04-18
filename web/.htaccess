@@ -1,6 +1,19 @@
-RewriteEngine On 
+# Mod_Autoindex
+<IfModule mod_autoindex.c>
+  # Disable indexes
+  Options -Indexes
+</IfModule>
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+# Mod_Rewrite
+<IfModule mod_rewrite.c>
+  # Enable symlinks
+  Options +FollowSymlinks
+  # Enable mod_rewrite
+  RewriteEngine On
 
-RewriteRule . index.php
+  # If a directory or a file exists, use the request directly
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  # Otherwise forward the request to index.php
+  RewriteRule . index.php
+</IfModule>

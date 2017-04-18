@@ -89,20 +89,52 @@ class SiteController extends Controller {
 
         return $this->goHome();
     }
+
+    /**
+     * Displays contact page.
+     *
+     * @return string
+     */
+    public function actionContact() {
+        $model = new ContactForm();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+            Yii::$app->session->setFlash('contactFormSubmitted');
+
+            return $this->refresh();
+        }
+        
+        return $this->render('contact', [
+            'model' => $model,
+        ]);
+    }
+
+    
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionMe() {
+        if (!\Yii::$app->user->can('about'))
+            throw new ForbiddenHttpException('Access denied');
+
+        return $this->render('me');
+    }
     
     public function beforeAction($action) {
-        $actionId = Yii::$app->controller->action->id;
-        
         if (
             // если я гость
             Yii::$app->user->isGuest
             &&
             // и это не страница /login
-            ($actionId !== 'login')
+            (Yii::$app->controller->action->id !== 'login')
         ) {
-            return $this->redirect('login');
+            $a = 123;
+            return $this->redirect('site/login');
         }
         
         return parent::beforeAction($action);
     }
+
 }

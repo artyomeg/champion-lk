@@ -1,13 +1,7 @@
 # Pre-OK
 RewriteEngine On
-#RewriteBase /
+#RewriteBase /web/index.php/
 RewriteRule ^(.*)      /web/$1   [QSA,L,NC]
-
-
-#RewriteCond %{ENV:REDIRECT_STATUS} ^$
-#RewriteRule ^[](.*)$ http://%{HTTP_HOST}/$1 [R=301,L]
-#RewriteRule ^zapis/$ /category/art1/zapis/ [L]
-
 
 
 # Заголовок Cache-Control

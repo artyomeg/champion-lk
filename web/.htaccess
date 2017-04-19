@@ -1,4 +1,4 @@
-#    RewriteBase /web/
+RewriteBase /
 # Заголовок Cache-Control
 <IfModule mod_headers.c>
         Header append Cache-Control "no-store, no-cache, must-revalidate"
@@ -24,12 +24,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # otherwise forward it to index.php
 RewriteRule .* index.php
 
-#RewriteRule ^(.*)      /web/$1
-#RewriteRule ^(.*)      /web/index.php/$1
-#RewriteRule ^index\.php$ yoursite.ru/ [R=301,L]
-
-#RewriteRule ^([^/].*)$ index.php/$1 [L]
-
-#Options +FollowSymLinks
-#RewriteEngine on
-#RewriteRule ^(.*)$ /web/index.php/$1
+#RewriteRule ^([^/].*)$ /index.php/$1 [L]

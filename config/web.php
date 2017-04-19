@@ -9,7 +9,7 @@ $config = [
     'components' => [
         'request' => [
             'cookieValidationKey' => md5('asdFw42Q'),
-            'baseUrl' => ''
+            'baseUrl' => '',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -42,7 +42,7 @@ $config = [
         
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => true,
+            'showScriptName' => false,
             'rules' => [
                 '<action>' => '/site/<action>',
                 [

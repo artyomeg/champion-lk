@@ -3,6 +3,8 @@
 /* @var $this yii\web\View */
 
 $this->title = 'Личный кабинет';
+
+$a = 1;
 ?>
 <div class="site-index">
 

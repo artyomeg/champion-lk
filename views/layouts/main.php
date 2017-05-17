@@ -39,22 +39,23 @@ AppAsset::register($this);
         ]);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
-            'items' => [
-                ['label' => 'Личный кабинет', 'url' => ['/site/index']],
-                ['label' => 'Отчеты о тренировках', 'url' => ['/site/report']],
-                Yii::$app->user->isGuest ? (
-                    ['label' => 'Войти', 'url' => ['/site/login']]
-                ) : (
-                    '<li>'
-                    . Html::beginForm(['/site/logout'], 'post')
-                    . Html::submitButton(
-                        'Выйти (' . Yii::$app->user->identity->email . ')',
-                        ['class' => 'btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
-                )
-            ],
+            'items' => 
+                Yii::$app->user->isGuest 
+                    ? [
+                        ['label' => 'Войти', 'url' => ['/site/login']]
+                    ]
+                    : [
+                        ['label' => 'Личный кабинет', 'url' => ['/site/index']],
+                        ['label' => 'Отчеты о тренировках', 'url' => ['/site/report']],
+                            '<li>'
+                                . Html::beginForm(['/site/logout'], 'post')
+                                . Html::submitButton(
+                                    'Выйти (' . Yii::$app->user->identity->email . ')',
+                                    ['class' => 'btn btn-link logout']
+                                )
+                                . Html::endForm()
+                            . '</li>'
+                    ],
         ]);
         NavBar::end();
     ?>

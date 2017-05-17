@@ -38,23 +38,18 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface {
     public function validateAuthKey($authKey) {
         return $this->getAuthKey() === $authKey;
     }
+    
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey() {
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
 
     public function validatePassword($password) {
         return true;
 //        $result = (md5($password) === $this->password_hash);
 //        $result = Yii::$app->security->validatePassword($password, $this->password_hash);;
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         if (!is_string($password) || $password === '') {
             return false;

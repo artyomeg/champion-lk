@@ -6,10 +6,12 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 use yii\web\ForbiddenHttpException;
 use yii\helpers\Url;
+
+use app\models\LoginForm;
+use app\models\ContactForm;
+use app\models\SignupForm;
 use app\models\Card;
 
 class SiteController extends Controller {
@@ -44,12 +46,33 @@ class SiteController extends Controller {
     }
 
     /**
-     * Displays homepage.
+     * Личный кабинет - Главная.
      *
      * @return string
      */
     public function actionIndex() {
         return $this->render('index');
+    }
+    
+    /**
+     * Регистрация
+     * 
+     * @return type
+     */
+    public function actionSignup() {
+        $model = new SignupForm();
+
+        // если модель загрузилась из $_POST
+        if ($model->load(Yii::$app->request->post()))
+            // если юзер присвоился
+            if ($user = $model->signup())
+                // если мы залогинились
+                if (Yii::$app->getUser()->login($user))
+                    return $this->goHome();
+
+        return $this->render('signup', [
+                    'model' => $model,
+        ]);
     }
 
     public function actionSetcards() {
@@ -136,6 +159,7 @@ class SiteController extends Controller {
             // и это не страница /login и не страница showcards
             if (
                 (($actionId !== 'login')
+                && ($actionId !== 'signup')
                 && ($actionId !== 'showcards')
                 && ($actionId !== 'setcards'))
             ) {

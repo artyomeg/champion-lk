@@ -42,7 +42,8 @@ class Card extends \yii\db\ActiveRecord {
             'id' => 'ID',
             'card_id' => 'Номер карты',
             'fio' => 'ФИО',
-            'last_operation' => 'Последняя операция ',
+            'last_operation' => 'Последняя операция',
+            'current_subscription' => 'Текущий абонемент',
         ];
     }
 

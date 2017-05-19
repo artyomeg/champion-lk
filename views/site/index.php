@@ -1,15 +1,8 @@
 <?php
+    use app\models\Card;
+    use app\models\User;
 
-/* @var $this yii\web\View */
-use app\models\Card;
-use app\models\User;
-
-
-$this->title = 'Личный кабинет';
-
-$card = Card::find()->where(['card_id' => Yii::$app->user->identity->card_id])->one();
-
-//echo Yii::$app->user->identity->email;
+    $this->title = 'Личный кабинет';
 ?>
 <div class="site-index">
 
@@ -19,34 +12,53 @@ $card = Card::find()->where(['card_id' => Yii::$app->user->identity->card_id])->
 
         <div class="row">
 
-            <p>
+            <h2>
                 <?= $card->fio ?>
-                <br/>
-                18.10.1980
-                <br/>
-                Мужчина
-            </p>
+            </h2>
 
             <p>
-                Действующие абонементы:
+                № клубной карты: <?= $card->card_id ?>
+            </p>
+            <p>
+                Действующий абонемент: <?= 
+                    ($card->current_subscription == '')
+                        ? '<отсутствует>'
+                        : $card->current_subscription . ' до ' . $card->subscription_finish
+                ?>
             </p>
             
-            
             <p>
-                Посещение тренажерного зала: осталось / приобретено
+                Посещение тренажерного зала: осталось <?= (int) $card->gym_ostalos ?> / приобретено <?= (int) $card->gym_vsego ?>
                 <br/>
-                Посещение групповых занятий: осталось / приобретено
+                Посещение групповых занятий: осталось <?= (int) $card->group_ostalos ?> / приобретено <?= (int) $card->group_vsego ?>
                 <br/>
-                Персональные тренировки: осталось / приобретено
+                Персональные тренировки: осталось <?= (int) $card->private_ostalos ?> / приобретено <?= (int) $card->private_vsego ?>
             </p>
 
             <p>
-                Заморозка карты: отключено / заморожено с дд.мм.гггг до дд.мм.гггг
+                Заморозка карты: 
+                <?php
+                    if ($card->unfreeze_date)
+                        echo 'заморожено с ' . $card->freeze_date . ' до ' . $card->unfreeze_date;
+                    else
+                        echo 'отключено';
+                ?>
             </p>
 
-            <p><a class="btn btn-default" href="/">Оставить заявку на заморозку абонемента &raquo;</a></p>
-            <p><a class="btn btn-default" href="/">Написать письмо руководству клуба  &raquo;</a></p>
+            <p>
+                <i>Оставить заявку на заморозку абонемента:</i>
+                <a class="btn btn-default" href="js:" data-toggle="modal" data-target="#_freeze">Перейти</a>
+            </p>
+            <p>
+                <i>Написать письмо руководству клуба:</i>
+                <a class="btn btn-default" href="js:" data-toggle="modal" data-target="#_sendletter">Перейти</a>
+            </p>
         </div>
         
+        <?php
+//            $this->renderPartial('_index_freeze');
+            echo Yii::$app->controller->renderPartial('_index_freeze');
+            echo Yii::$app->controller->renderPartial('_index_sendletter');
+        ?>
     </div>
 </div>

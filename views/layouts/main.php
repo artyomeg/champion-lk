@@ -29,65 +29,68 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
-<?php $this->beginBody() ?>
+    <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <?php
-        // если гость
-        if (Yii::$app->user->isGuest) {
-            $menuitems = [
-                    ['label' => 'Регистрация', 'url' => ['/site/signup']],
-                    ['label' => 'Вход', 'url' => ['/site/login']]
-                ];
-        }
-        else {
-            $menuitems = [
-                    ['label' => 'Личный кабинет', 'url' => ['/site/index']],
-                    ['label' => 'Отчеты о тренировках', 'url' => ['/site/report']],
-                    '<li>'
-                        . Html::beginForm(['/site/logout'], 'post')
-                        . Html::submitButton(
-                            'Выйти (' . Yii::$app->user->identity->email . ')',
-                            ['class' => 'btn btn-link logout']
-                        )
-                        . Html::endForm()
-                    . '</li>'
-                ];
-        }
-        
-        NavBar::begin([
-            'brandLabel' => 'Чемпион',
-            'brandUrl' => Yii::$app->homeUrl,
-            'options' => [
-                'class' => 'navbar-inverse navbar-fixed-top',
-            ],
-        ]);
-        
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
-            'items' => $menuitems,
-        ]);
-        
-        NavBar::end();
-    ?>
+    <div class="wrap">
+        <?php
+            // если гость
+            if (Yii::$app->user->isGuest) {
+                $menuitems = [
+                        ['label' => 'Регистрация', 'url' => ['/site/signup']],
+                        ['label' => 'Вход', 'url' => ['/site/login']]
+                    ];
+            }
+            else {
+                $menuitems = [
+                        ['label' => 'Личный кабинет', 'url' => ['/site/index']],
+                        ['label' => 'Отчеты о тренировках', 'url' => ['/site/report']],
+                        '<li>'
+                            . Html::beginForm(['/site/logout'], 'post')
+                            . Html::submitButton(
+                                'Выйти (' . Yii::$app->user->identity->email . ')',
+                                ['class' => 'btn btn-link logout']
+                            )
+                            . Html::endForm()
+                        . '</li>'
+                    ];
+            }
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= $content ?>
+            NavBar::begin([
+                'brandLabel' => 'Чемпион',
+                'brandUrl' => Yii::$app->homeUrl,
+                'options' => [
+                    'class' => 'navbar-inverse navbar-fixed-top',
+                ],
+            ]);
+
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-right'],
+                'items' => $menuitems,
+            ]);
+
+            NavBar::end();
+        ?>
+
+        <div class="container">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= $content ?>
+        </div>
     </div>
-</div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; Чемпион <?= date('Y') ?></p>
+    <footer class="footer">
+        <div class="container">
+            <p class="pull-left">&copy; Чемпион <?= date('Y') ?></p>
 
-        <p class="pull-right"></p>
-    </div>
-</footer>
+            <p class="pull-right"></p>
+        </div>
+    </footer>
+    
+    <script src="/js/recall_me.js"></script>
+    <script src="/js/jqBootstrapValidation.js"></script>
 
-<?php $this->endBody() ?>
+    <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

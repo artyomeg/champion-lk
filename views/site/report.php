@@ -3,6 +3,11 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+use yii\widgets\ListView;
+use yii\data\ActiveDataProvider;
+
+use app\models\Training;
+use app\models\User;
 
 $this->title = 'Отчеты о тренировках';
 //$this->params['breadcrumbs'][] = $this->title;
@@ -10,51 +15,28 @@ $this->title = 'Отчеты о тренировках';
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="row">
-        <h2>
-            20.03.2017	
-        </h2>
-        <p>
-            Тренировка в групповом зале, осталось 3 тренировки до 30.03.17		
-        </p>
-        <p>
-            Тренировка в тренажерном зале, тренировок больше не осталось.	
-        </p>
-    </div>
+    <?php
 
-    <div class="row">
-        <h2>
-            18.03.2017	
-        </h2>
-        <p>
-            Тренировка в групповом зале, осталось 4 тренировки до 30.03.17
-        </p>
-        <p>
-            Тренировка в тренажерном зале с тренером, осталось 1 тренировка до 30.03.17	
-        </p>
-    </div>
+        $user = User::find()->where(['email' => Yii::$app->user->identity->email])->one();
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => Training::find()->where(['card_id' => $user->card_id])->orderBy('date DESC'),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
 
-    <div class="row">
-        <h2>
-            15.03.2017	
-        </h2>
-        <p>
-        Тренировка в тренажерном зале с тренером, осталось 2 тренировки, 1 из которых с тренером до 30.03.17
-        </p>
-    </div>
-    
-
-    <div class="row">
-        <h2>
-            15.03.2017	
-        </h2>
-        <p>
-            Тренировка в групповом зале, осталось 5 тренировок до 30.03.17	
-        </p>
-        <p>
-            Тренировка в тренажерном зале с тренером, осталось 3 тренировки, 2 из которых с тренером до 30.03.17	
-        </p>
-    </div>
+        echo ListView::widget([
+            'dataProvider' => $dataProvider,
+            'itemView' => '_report',
+            'layout' => "{items}\n{pager}",
+            'emptyText' => '<div class="row">
+                    <h5>
+                        Данные о тренировках отсутствуют.
+                    </h5>
+                </div>',
+        ]);
+    ?>
     
 </div>
 

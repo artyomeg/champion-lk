@@ -113,3 +113,10 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+body .row {
+    margin-right: inherit; 
+    margin-left: inherit; 
+}
+.modal-dialog .control-group{
+    margin-bottom: 10px;
+}

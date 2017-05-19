@@ -1,14 +1,18 @@
 <?php
-    use app\models\Card;
+    use app\models\Training;
     use yii\data\ActiveDataProvider;
-//    use yii\widgets\GridView;
     use yii\grid\GridView;
-?>
+;?>
     <h1>Клубные карты</h1>
     
     <?php
         $dataProvider = new ActiveDataProvider([
-            'query' => Card::find(),
+            'query' => Training::find()
+                ->select("card.fio,
+                    training.card_id,
+                    training.date,
+                    training.title")
+                ->innerJoin('card', 'training.card_id = card.card_id'),
         ]);
     ?>
 
@@ -17,9 +21,10 @@
             'columns' => [
 //                ['class' => 'yii\grid\SerialColumn'],
 
-                'card_id',
                 'fio',
-                'current_subscription',
+                'card_id',
+                'date',
+                'title',
 
 //                ['class' => 'yii\grid\ActionColumn'],
             ],

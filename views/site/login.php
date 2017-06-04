@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Вход';
+$this->title = 'Вход в личный кабинет';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
@@ -41,6 +41,8 @@ $this->title = 'Вход';
     <?php ActiveForm::end(); ?>
 
     <div class="col-lg-offset-1" style="color:#999;">
-        Используйте <strong>demo@mail.ru/demo</strong> для входа.<br>
+        Используйте <strong>demo@mail.ru/demo</strong> для входа.
+        <br>
+        <?= Html::a('Забыли пароль или не можете войти?', ['site/request-password-reset']) ?>
     </div>
 </div>

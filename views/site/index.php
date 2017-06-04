@@ -1,6 +1,7 @@
 <?php
     use app\models\Card;
     use app\models\User;
+    use app\models\Subscription;
 
     $this->title = 'Личный кабинет';
 ?>
@@ -20,10 +21,57 @@
                 № клубной карты: <?= $card->card_id ?>
             </p>
             <p>
-                Действующий абонемент: <?= 
-                    ($card->current_subscription == '')
-                        ? '<отсутствует>'
-                        : $card->current_subscription . ' до ' . $card->subscription_finish
+                Действующие абонементы: 
+                
+                <?php
+                    $mySubscriptions = Subscription::find()->where(['card_id' => Yii::$app->user->identity->card_id])->all();
+                    
+                    $subscriptions = null;
+                    
+                    $datetimeNow = date_create(date("Y-m-d"));
+                    
+                    if (!empty($mySubscriptions)) {
+                        foreach ($mySubscriptions as $subscription) {
+                            $datetimeExpiration = date_create(date("Y-m-d", strtotime($subscription->first_visit_date)));
+                            $interval = date_diff($datetimeNow, $datetimeExpiration);
+                            //echo '<' . $interval->format('%R%a дней'). '>' ;
+                            
+                            // если прошла дата окончания абонемента
+                            if ($datetimeNow > $datetimeExpiration)
+                                continue;
+
+                            $subscriptions .= 
+                                '<br/>'
+                                . $subscription->title
+                                . ' — ';
+                            
+                            if ($subscription->first_visit_date || $subscription->expiration_date) {
+                                // если указан первый визит
+                                if ($subscription->first_visit_date)
+                                    $subscriptions .=  
+                                        ' с '
+                                        . date("d.m.Y", strtotime($subscription->first_visit_date));
+
+                                // если указана дата окончания
+                                if ($subscription->expiration_date)
+                                    $subscriptions .= 
+                                        ' до '
+                                        . date("d.m.Y", strtotime($subscription->expiration_date));
+
+                                $subscriptions .=
+                                    '.';
+                            }
+                            else 
+                                $subscriptions .= 'первое посещение не зафиксировано';
+                        }
+                        
+                        echo $subscriptions;
+                    }
+                    
+                    // если не нашлось нормального абонемента
+                    if (!$subscriptions)
+                        echo '<дествующие абонементы отсутствуют>';
+                        
                 ?>
             </p>
             

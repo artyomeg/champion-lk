@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
                 <!-- Form itself -->
-                <form name="sentMessage" class="form form-register1" id="contactForm"  novalidate>
+                <form name="sentMessage" class="form form-register1 form_ajax" id="contactForm" method="post">
 
                     <div class="control-group">
                         <h4>Оставить заявку на заморозку абонемента:</h4>
@@ -22,7 +22,8 @@
                                 placeholder="Телефон" 
                                 id="phone"
                                 required
-                                data-validation-required-message="Пожалуйста, укажите номер телефона" 
+                                data-validation-required-message="Пожалуйста, укажите номер телефона"
+                                name="phone"
                                 />
                         </div>
                     </div>
@@ -30,18 +31,20 @@
                         <div class="controls">
                             <textarea
                                 class="form-control"
-                                placeholder="Причина заморозки"
+                                placeholder="Укажите желаемое время и опишите причину заморозки"
                                 rows="3"
+                                name="why"
+                                required
                                 ></textarea>
                             <p class="help-block"></p>
                         </div>
                     </div>  
 
-
-                    <div id="success"></div> <!-- For success/fail messages -->
+                    <div class="status-text"></div> <!-- For success/fail messages -->
                     
                     <div class="control-group">
-                        <button type="submit" class="btn pull-right">Отправить</button><br />      
+                        <input type="hidden" name="want" value="freeze"/>
+                        <button type="submit" class="btn pull-right btn-primary">Отправить</button><br />      
                     </div>  
 
                     <div class="clearfix"> </div>

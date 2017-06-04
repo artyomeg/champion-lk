@@ -12,7 +12,7 @@
     elseif ($_SERVER['HTTP_HOST'] == "lk.championdd.ru") 
         return [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=u0324545_default',
+            'dsn' => 'mysql:host=localhost;dbname=u0324545_lk',
             'username' => 'u0324545_default',
             'password' => 'Qc_andB0',
             'charset' => 'utf8',

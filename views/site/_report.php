@@ -5,10 +5,10 @@
  
     <div class="row">
         <h3>
-            <?= Html::encode($model->date) ?>	
+            <?= Html::encode(date("d.m.Y", strtotime($model->date))) ?>	
         </h3>
         <p>
-            <?= Html::encode($model->title) ?>	
+            Занятие: <?= Html::encode($model->title) ?>	
         </p>
         <p>
             <?php

@@ -26,6 +26,10 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/img/favicon-96x96.png" sizes="96x96">
+
     <?php $this->head() ?>
 </head>
 <body>
@@ -56,7 +60,7 @@ AppAsset::register($this);
             }
 
             NavBar::begin([
-                'brandLabel' => 'Чемпион',
+                'brandLabel' => Html::img('@web/img/logo.png', ['alt' => Yii::$app->name]),
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
@@ -86,11 +90,12 @@ AppAsset::register($this);
             <p class="pull-right"></p>
         </div>
     </footer>
-    
-    <script src="/js/recall_me.js"></script>
-    <script src="/js/jqBootstrapValidation.js"></script>
 
-    <?php $this->endBody() ?>
+    <?php 
+        $this->registerJsFile('/js/recall_me.js?v=1.001',  ['position' => yii\web\View::POS_END]);
+        $this->registerJsFile('/js/jqBootstrapValidation.js',  ['position' => yii\web\View::POS_END]);
+        $this->endBody();
+    ?>
 </body>
 </html>
 <?php $this->endPage() ?>

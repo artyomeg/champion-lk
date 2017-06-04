@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
                 <!-- Form itself -->
-                <form name="sentMessage" class="form form-register1" id="contactForm"  novalidate>
+                <form name="sentMessage" class="form form-register1 form_ajax" id="contactForm" method="post"  novalidate>
 
                     <div class="control-group">
                         <h4>Написать письмо руководству клуба:</h4>
@@ -30,16 +30,17 @@
                                 class="form-control"
                                 placeholder="Текст сообщения"
                                 rows="4"
+                                name="letter_text"
                                 ></textarea>
                             <p class="help-block"></p>
                         </div>
                     </div>
 
-
-                    <div id="success"></div> <!-- For success/fail messages -->
+                    <div class="status-text"></div> <!-- For success/fail messages -->
                     
                     <div class="control-group">
-                        <button type="submit" class="btn pull-right">Отправить</button><br />      
+                        <input type="hidden" name="want" value="sendletter"/>
+                        <button type="submit" class="btn pull-right btn-primary">Отправить</button><br />      
                     </div>  
 
                     <div class="clearfix"> </div>
